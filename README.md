@@ -4,4 +4,4 @@ The objective of the game is to sit aliens that like each other in a dinner situ
 It outputs the maximum score achieved and the seating for each alien
 ## How to Run
 Choose the preferences file in the give format and the number of seconds to run for \
-python space_search.py pref[1,3].text 60
+python space_search.py -h
