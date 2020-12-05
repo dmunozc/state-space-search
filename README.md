@@ -5,3 +5,7 @@ It outputs the maximum score achieved and the seating for each alien
 ## How to Run
 Choose the preferences file in the give format and the number of seconds to run for \
 python space_search.py -h
+
+### Score Progress for Both Configurations
+
+![sss_progress](sss_progress.png)

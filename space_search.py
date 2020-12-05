@@ -34,9 +34,7 @@ def best_for_location(party, location, noise):
         # current alien.
         # Will calculate maximum score possible by seating aliens adjacent
         # and across.
-        remaining_pairs = permutations(
-            party.aliens_not_seated, len(adjacent_locations)
-        )
+        remaining_pairs = permutations(party.aliens_not_seated, len(adjacent_locations))
         for pair in remaining_pairs:
             temp_score = g
             # Seat each alien and calculate its immediate impact on the table.
@@ -53,10 +51,7 @@ def best_for_location(party, location, noise):
         party.unseat_location(location)
     # return sorted aliens by score, want to sometimes explore a random path
     # by using swap_random.
-    return swap_random(
-        sorted(scores_per_alien.items(), key=lambda x: x[1], reverse=True),
-        noise,
-    )
+    return swap_random(sorted(scores_per_alien.items(), key=lambda x: x[1], reverse=True), noise)
 
 
 def swap_random(seq, noise=0.25, max_nodes=12):
@@ -76,9 +71,7 @@ def swap_random(seq, noise=0.25, max_nodes=12):
     return seq[:max_nodes]
 
 
-def seat_next_alien(
-    party, locations, time_start, max_seconds, solution, noise
-):
+def seat_next_alien(party, locations, time_start, max_seconds, solution, noise):
     """Tries to find the best alien to set at the needed location."""
     if not locations:
         return solution
@@ -86,9 +79,7 @@ def seat_next_alien(
     if (datetime.now() - time_start).total_seconds() < max_seconds:
         for loc in locations:
             # Get sorted list of aliens that would give the best score at loc
-            scores_per_alien = best_for_location(
-                party=party, location=loc, noise=noise
-            )
+            scores_per_alien = best_for_location(party=party, location=loc, noise=noise)
             for pair in scores_per_alien:
                 # for each of those aliens, seat them and find the next best
                 # alien for empty locations
@@ -119,9 +110,7 @@ def seat_next_alien(
     return solution
 
 
-def solve_astar(
-    n_aliens, preference_matrix, time_start, max_seconds=60, noise=0.2
-):
+def solve_astar(n_aliens, preference_matrix, time_start, max_seconds=60, noise=0.2):
     """Solves the problem using complete state space search."""
     # Sum rows and columns for each alien. Aliens with lowest scores
     # must be seated at corner since it is not liked and does not like
@@ -153,10 +142,7 @@ def solve_astar(
         if (datetime.now() - time_start).total_seconds() >= max_seconds:
             break
     max_score = solution.pop("max_score")
-    return (
-        max_score,
-        sorted(solution.items(), key=lambda x: x[1], reverse=False),
-    )
+    return max_score, sorted(solution.items(), key=lambda x: x[1], reverse=False)
 
 
 def main(preference_file_loc, max_seconds=60):
@@ -183,17 +169,7 @@ def main(preference_file_loc, max_seconds=60):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "-pref",
-        dest="preference_file",
-        help="seating preference file",
-        default="pref1.txt",
-    )
-    parser.add_argument(
-        "-mt",
-        dest="max_time",
-        help="maximum running time, in seconds",
-        default=60,
-    )
+    parser.add_argument("-pref", dest="preference_file", help="seating preference file", default="pref1.txt")
+    parser.add_argument("-mt", dest="max_time", help="maximum running time, in seconds", default=60)
     args = parser.parse_args()
     main(args.preference_file, int(args.max_time))

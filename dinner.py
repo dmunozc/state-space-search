@@ -93,13 +93,7 @@ class Dinner:
       satisfaction of the current seating.
       """
 
-    def __init__(
-        self,
-        number_of_guests,
-        preference_matrix,
-        init_seating=None,
-        safe=False,
-    ):
+    def __init__(self, number_of_guests, preference_matrix, init_seating=None, safe=False):
         self.number_of_guests = number_of_guests
         assert len(preference_matrix) == number_of_guests
         assert len(preference_matrix[0]) == number_of_guests
@@ -152,10 +146,7 @@ class Dinner:
         self.aliens_seated.append(alien)
         self.aliens_not_seated.remove(alien)
         if self.safe:
-            assert (
-                len(self.aliens_not_seated) + len(self.aliens_seated)
-                == self.number_of_guests
-            )
+            assert len(self.aliens_not_seated) + len(self.aliens_seated) == self.number_of_guests
 
     def unseat_alien(self, alien):
         if self.safe:
@@ -167,10 +158,7 @@ class Dinner:
         self.aliens_seated.remove(alien)
         self.aliens_not_seated.append(alien)
         if self.safe:
-            assert (
-                len(self.aliens_not_seated) + len(self.aliens_seated)
-                == self.number_of_guests
-            )
+            assert len(self.aliens_not_seated) + len(self.aliens_seated) == self.number_of_guests
         return location
 
     def unseat_location(self, location):
@@ -181,10 +169,7 @@ class Dinner:
         self.aliens_seated.remove(alien)
         self.aliens_not_seated.append(alien)
         if self.safe:
-            assert (
-                len(self.aliens_not_seated) + len(self.aliens_seated)
-                == self.number_of_guests
-            )
+            assert len(self.aliens_not_seated) + len(self.aliens_seated) == self.number_of_guests
         return alien
 
     def swap_aliens(self, alien1, alien2):
